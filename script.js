@@ -161,4 +161,4 @@ btnReinicio.addEventListener('click', () => {
 
 // Inicialización de arranque del script
 construirRamo();
-inicializarReloj(); 
+inicializarReloj();  
