@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Niña ❤️ Un Ramo Especial</title>
+    <!-- Vinculación correcta a tu hoja de estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Capa de interacción inicial obligatoria (Políticas de Autoplay de Navegadores) -->
+    <div id="pantalla-inicio" class="pantalla-inicio" aria-live="polite">
+        <div class="tarjeta-inicio">
+            <h1>Tengo un detalle para ti...</h1>
+            <p>Haz clic en el botón para abrirlo con música</p>
+            <button id="btn-abrir" class="btn-abrir">Abrir Ramo ❤️</button>
+        </div>
+    </div>
+
+    <!-- Escenario Principal Semántico -->
+    <main class="escenario">
+        
+        <!-- Cabecera e Interfaz de Mensajes -->
+        <header class="interfaz-usuario">
+            <h1 class="titulo-principal">Para mi niña ❤️</h1>
+            <p id="mensaje-dinamico" class="mensaje-dinamico">Toca las flores para descubrir sus secretos...</p>
+            <p id="fecha-reloj" class="fecha-reloj"></p>
+            <button id="btn-reinicio" class="btn-retro" aria-label="Regenerar el ramo de flores">Regenerar Ramo 🔄</button>
+        </header>
+
+        <!-- Espacio Isométrico Visual (Contenedor 2.5D) -->
+        <section class="contenedor-3d" aria-hidden="true">
+            <!-- Envase/Canasta del ramo con profundidad física -->
+            <div class="canasta"></div>
+            
+            <!-- Capa de renderizado matemático de los tallos -->
+            <div class="grupo-tallos" id="grupo-tallos"></div>
+
+            <!-- Capa donde JS inyectará las flores con coordenadas translateZ -->
+            <div class="ramo-flores" id="jardin-flores"></div>
+        </section>
+
+    </main>
+
+    <!-- Reproductor de Audio Nativo en Bucle -->
+    <audio id="musica-fondo" loop preempt="auto">
+        <source src="audio/cancion.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Script de control - Cargado al final para asegurar el render del DOM -->
+    <script src="script.js"></script>
+</body>
+</html> 

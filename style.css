@@ -1,0 +1,336 @@
+/* --- ESTILOS GENERALES Y ESCENARIO --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --escala: 1; /* Factor de escala dinámico para el entorno 3D */
+}
+
+body {
+    background: linear-gradient(135deg, #2b1055, #7597de);
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px; /* Habilita la perspectiva 3D global */
+}
+
+/* Pantalla de bienvenida interactiva */
+.pantalla-inicio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 6, 32, 0.95);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease, visibility 0.8s;
+    padding: 20px;
+}
+
+.pantalla-inicio.oculto {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tarjeta-inicio {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 30px 20px;
+    border-radius: 24px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    max-width: 340px;
+    width: 100%;
+    animation: flotarIntro 3s ease-in-out infinite;
+}
+
+.tarjeta-inicio h1 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.tarjeta-inicio p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+@keyframes flotarIntro {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.btn-abrir {
+    margin-top: 25px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 65, 108, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-abrir:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(255, 65, 108, 0.6);
+}
+
+/* Escenario de fondo */
+.escenario {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px;
+}
+
+/* Interfaz superior */
+.interfaz-usuario {
+    text-align: center;
+    color: white;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+}
+
+.titulo-principal {
+    font-size: 2rem;
+    text-shadow: 0 0 15px rgba(255,255,255,0.6), 0 4px 8px rgba(0,0,0,0.4);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.mensaje-dinamico {
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 20px;
+    border-radius: 30px;
+    display: inline-block;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-height: 38px;
+    width: 90%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.fecha-reloj {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.btn-retro {
+    margin-top: 12px;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-retro:hover {
+    background: white;
+    color: #2b1055;
+    transform: translateY(-2px);
+}
+
+/* --- ENTORNO 2.5D RESPONSIVO --- */
+.contenedor-3d {
+    position: absolute;
+    bottom: 5%;
+    width: 400px;
+    height: 500px;
+    transform-style: preserve-3d;
+    /* Aplica la inclinación isométrica combinada con el factor de escala dinámico */
+    transform: scale(var(--escala)) rotateX(16deg) rotateY(0deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+/* Jarrón / Canasta */
+.canasta {
+    position: absolute;
+    bottom: 0;
+    width: 140px;
+    height: 180px;
+    background: linear-gradient(135deg, #8a5a36, #5c3a21);
+    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    border-radius: 0 0 20px 20px;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.4), 0 20px 30px rgba(0,0,0,0.6);
+    z-index: 5;
+    transform: translateZ(20px);
+}
+
+/* Contenedor de las flores */
+.ramo-flores {
+    position: absolute;
+    top: 50px;
+    width: 380px;
+    height: 300px;
+    transform-style: preserve-3d;
+    z-index: 4;
+}
+
+/* Tallos individuales dinámicos */
+.grupo-tallos {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.tallo-linea {
+    position: absolute;
+    bottom: 90px;
+    background: linear-gradient(to top, #1e4620, #2e7d32);
+    width: 4px;
+    transform-origin: bottom center;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* --- MODELADO DE FLORES EN 2.5D --- */
+.flor-3d {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Capas internas de pétalos para simular volumen geométrico profundo */
+.capa-petalos {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.petalo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 50px;
+    border-radius: 50% 50% 40% 40%;
+    transform-origin: bottom center;
+    box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2), 0 4px 6px rgba(0,0,0,0.15);
+}
+
+/* Estilos cromáticos de pétalos */
+.flor-3d.roja .petalo { background: linear-gradient(to top, #b71c1c, #ff1744); }
+.flor-3d.rosa .petalo { background: linear-gradient(to top, #c2185b, #f48fb1); }
+.flor-3d.morada .petalo { background: linear-gradient(to top, #4a148c, #ba68c8); }
+
+/* Distribución radial angular tridimensional de los pétalos */
+.petalo:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg) translateZ(5px) rotateX(10deg); }
+.petalo:nth-child(2) { transform: translate(-50%, -100%) rotate(60deg) translateZ(5px) rotateX(10deg); }
+.petalo:nth-child(3) { transform: translate(-50%, -100%) rotate(120deg) translateZ(5px) rotateX(10deg); }
+.petalo:nth-child(4) { transform: translate(-50%, -100%) rotate(180deg) translateZ(5px) rotateX(10deg); }
+.petalo:nth-child(5) { transform: translate(-50%, -100%) rotate(240deg) translateZ(5px) rotateX(10deg); }
+.petalo:nth-child(6) { transform: translate(-50%, -100%) rotate(300deg) translateZ(5px) rotateX(10deg); }
+
+/* Capa interior de pétalos alternados y más elevados hacia el frente */
+.capa-interna .petalo {
+    width: 24px;
+    height: 38px;
+    opacity: 0.95;
+}
+.capa-interna {
+    transform: scale(0.8) translateZ(12px) rotate(30deg);
+}
+
+/* Centro volumétrico brillante de la flor (Pistilo) */
+.centro-flor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #ffeb3b 40%, #ff9800 100%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) translateZ(20px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3), inset 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+/* Animaciones orgánicas adaptadas a interacciones táctiles */
+.flor-3d:hover {
+    transform: scale(1.15) translateZ(30px) rotate(15deg) !important;
+}
+
+@keyframes balanceo {
+    0%, 100% { transform: scale(var(--escala)) rotateX(16deg) rotateY(0deg) rotateZ(0deg); }
+    50% { transform: scale(var(--escala)) rotateX(16deg) rotateY(0deg) rotateZ(2deg); }
+}
+
+.contenedor-3d {
+    animation: balanceo 6s ease-in-out infinite;
+}
+
+/* --- RESPONSIVIDAD MEDIANTE MEDIA QUERIES --- */
+
+/* Ajuste para pantallas medianas o celulares grandes (iPhone Pro Max, Galaxy Ultra) */
+@media (max-width: 430px) {
+    :root {
+        --escala: 0.85;
+    }
+    .titulo-principal {
+        font-size: 1.8rem;
+    }
+    .contenedor-3d {
+        bottom: 2%;
+    }
+}
+
+/* Ajuste para celulares pequeños o pantallas estándar (iPhone 12/13/14 mini, SE) */
+@media (max-width: 375px) {
+    :root {
+        --escala: 0.72;
+    }
+    .titulo-principal {
+        font-size: 1.6rem;
+    }
+    .mensaje-dinamico {
+        font-size: 0.9rem;
+        padding: 6px 15px;
+    }
+    .contenedor-3d {
+        bottom: 0%;
+    }
+}
+
+/* Ajuste de seguridad para pantallas con muy poca altura vertical */
+@media (max-height: 667px) {
+    :root {
+        --escala: 0.65;
+    }
+    .interfaz-usuario {
+        transform: scale(0.9);
+    }
+} 
